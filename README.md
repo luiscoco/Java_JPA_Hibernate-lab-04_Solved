@@ -24,6 +24,8 @@ and Table per class (InheritanceType.**JOINED**).
 
 <img width="1170" height="365" alt="image" src="https://github.com/user-attachments/assets/5ed9abac-4cb2-49df-b212-87a1ca7353c7" />
 
+<img width="820" height="195" alt="image" src="https://github.com/user-attachments/assets/42c7e61f-e421-4cd9-86ce-8b0068d9cc77" />
+
 **Description**
 
 **Inheritance type SINGLE_TABLE**
