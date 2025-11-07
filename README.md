@@ -2,21 +2,29 @@
 
 ## Exercise
 
-Entities class hierarchy
+**Entities class hierarchy**
 
-Goal
+**Goal**
 
 Learn how to map entity-classes hierarchy (OOP paradigm) into relational model in terms of Java Persistence API.
 
-Subject
+**Subject**
 
 There are 3 domain objects: Customer, Employee and Executive. All of them have common parent class Person that is abstract and contains shared fields (id and name). The following class diagram represents the hierarchy of classes (with its attributes):
 
 <img width="266" height="260" alt="image" src="https://github.com/user-attachments/assets/fc087e21-9bb3-4343-bad1-2621e8fdb5aa" />
 
-You need to map this OO model into relational model using facilities provided by JPA: Single table per class hierarchy (InheritanceType.SINGLE_TABLE); Table per concrete class (InheritanceType.TABLE_PER_CLASS); and Table per class (InheritanceType.JOINED).
+You need to map this OO model into relational model using facilities provided by JPA: 
 
-Description
+Single table per class hierarchy (InheritanceType.**SINGLE_TABLE**); 
+
+Table per concrete class (InheritanceType.**TABLE_PER_CLASS**);
+
+and Table per class (InheritanceType.**JOINED**).
+
+<img width="1170" height="365" alt="image" src="https://github.com/user-attachments/assets/5ed9abac-4cb2-49df-b212-87a1ca7353c7" />
+
+**Description**
 
 **Inheritance type SINGLE_TABLE**
 
@@ -130,8 +138,139 @@ method sample() finds the entity by identified and prints the “name” attribu
 
 28.	Open database DB_LAB_04 using MySQL Workbench and look on the created database objects.
  
-
-
 ## Solution
 
+Here are concise MySQL queries you can run to verify each inheritance strategy’s schema and data.
+
+**SINGLE_TABLE (TABLE_PER_HIERARCHY)**
+
+**Switch and inspect**
+
+```
+USE DB_LAB_04_TABLE_PER_HIERARCHY;
+
+SHOW TABLES;
+
+DESCRIBE Person;
+
+SHOW CREATE TABLE Person\G
+```
+
+**Data checks**
+
+```
+SELECT id, name, TYPE, discount, salary, bonus FROM Person ORDER BY id;
+
+SELECT TYPE, COUNT(*) FROM Person GROUP BY TYPE;
+
+SELECT name FROM Person WHERE id = 3;
+```
+
+**TABLE_PER_CLASS**
+
+**Switch and inspect**
+
+```
+USE DB_LAB_04_TABLE_PER_CLASS;
+
+SHOW TABLES;
+
+DESCRIBE Customer;
+
+DESCRIBE Employee;
+
+DESCRIBE Executive;
+```
+
+**Data checks**
+
+```
+SELECT * FROM Customer;
+
+SELECT * FROM Employee;
+
+SELECT * FROM Executive;
+```
+
+**Unified projection**:
+
+```
+SELECT id, name, 'Customer' AS TYPE, discount, NULL AS salary, NULL AS bonus FROM Customer
+
+UNION ALL
+
+SELECT id, name, 'Employee', NULL, salary, NULL FROM Employee
+
+UNION ALL
+
+SELECT id, name, 'Executive', NULL, salary, bonus FROM Executive
+
+ORDER BY id;
+
+SELECT name FROM Executive WHERE id = 3;
+
+JOINED (TABLE_PER_SUBCLASS)
+```
+
+**Switch and inspect**
+
+```
+USE DB_LAB_04_TABLE_PER_SUBCLASS;
+
+SHOW TABLES;
+
+DESCRIBE Person;
+
+DESCRIBE Customer;
+
+DESCRIBE Employee;
+
+DESCRIBE Executive;
+```
+
+**Data checks**
+
+```
+SELECT * FROM Person ORDER BY id;
+```
+
+**Joined projection**:
+
+```
+SELECT p.id, p.name,
+
+CASE
+
+WHEN x.id IS NOT NULL THEN 'Executive'
+
+WHEN e.id IS NOT NULL THEN 'Employee'
+
+WHEN c.id IS NOT NULL THEN 'Customer'
+
+ELSE 'Person'
+
+END AS TYPE,
+
+c.discount, e.salary, x.bonus
+
+FROM Person p
+
+LEFT JOIN Customer c ON c.id = p.id
+
+LEFT JOIN Employee e ON e.id = p.id
+
+LEFT JOIN Executive x ON x.id = p.id
+
+ORDER BY p.id;
+
+SELECT p.name FROM Person p JOIN Executive x ON x.id = p.id WHERE p.id = 3;
+```
+
+**Optional global check**
+
+```
+SELECT table_schema, table_name FROM information_schema.tables WHERE table_schema LIKE 'DB_LAB_04%';
+```
+
+These align with what each Launcher inserts: ids 1 (Customer), 2 (Employee), 3 (Executive).
 
