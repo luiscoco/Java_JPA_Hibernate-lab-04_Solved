@@ -26,9 +26,7 @@ and Table per class (InheritanceType.**JOINED**).
 
 <img width="820" height="195" alt="image" src="https://github.com/user-attachments/assets/42c7e61f-e421-4cd9-86ce-8b0068d9cc77" />
 
-**Description**
-
-**Inheritance type SINGLE_TABLE**
+### 1.1 Inheritance type SINGLE_TABLE
 
 1.	Open module jpa-lab-04
 
@@ -72,7 +70,7 @@ method sample() finds the entity by identified and prints the “name” attribu
 
 10.	Open database DB_LAB_04_TABLE_PER_HIERARCHY using dbVisualizer application, and look on the created database objects (tables, constraints, etc.) and data. Analyze it.
 
-**Inheritance type TABLE_PER_CLASS**
+### 1.2 Inheritance type TABLE_PER_CLASS
 
 11.	Look on the package edu.jpa.TABLE_PER_CLASS.entity. This package contains entity-classes for the domain.
 
@@ -106,7 +104,7 @@ method sample() finds the entity by identified and prints the “name” attribu
 
 19.	Open database DB_LAB_04_ TABLE_PER_CLASS using dbVisualizer application, and look on the created database objects (tables, constraints, etc.) and data. Analyze it.
 
-**Inheritance type JOINED**
+### 1.3 Inheritance type JOINED
 
 20.	Look on the package edu.jpa.TABLE_PER_SUBCLASS.entity. This package contains entity-classes for the domain.
 
