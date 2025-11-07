@@ -295,3 +295,100 @@ mvn -q exec:java@TABLE_PER_SUBCLASS
 ```
 These align with what each Launcher inserts: ids 1 (Customer), 2 (Employee), 3 (Executive).
 
+## 4. Application Outputs
+
+### 4.1. SINGLE_TABLE (TABLE_PER_HIERARCHY)
+
+Switch and inspect
+
+```
+USE DB_LAB_04_TABLE_PER_HIERARCHY;
+SHOW TABLES;
+DESCRIBE Person;
+SHOW CREATE TABLE Person;
+```
+
+Data checks
+
+```
+SELECT id, name, TYPE, discount, salary, bonus FROM Person ORDER BY id;
+SELECT TYPE, COUNT(*) FROM Person GROUP BY TYPE;
+SELECT name FROM Person WHERE id = 3;
+```
+
+### 4.2. TABLE_PER_CLASS
+
+Switch and inspect
+
+```
+USE DB_LAB_04_TABLE_PER_CLASS;
+SHOW TABLES;
+DESCRIBE Customer;
+DESCRIBE Employee;
+DESCRIBE Executive;
+```
+
+Data checks
+
+```
+SELECT * FROM Customer;
+SELECT * FROM Employee;
+SELECT * FROM Executive;
+```
+
+Unified projection:
+
+```
+SELECT id, name, 'Customer' AS TYPE, discount, NULL AS salary, NULL AS bonus FROM Customer
+UNION ALL
+SELECT id, name, 'Employee', NULL, salary, NULL FROM Employee
+UNION ALL
+SELECT id, name, 'Executive', NULL, salary, bonus FROM Executive
+ORDER BY id;
+SELECT name FROM Executive WHERE id = 3;
+```
+
+### 4.3. JOINED (TABLE_PER_SUBCLASS)
+
+Switch and inspect
+
+```
+USE DB_LAB_04_TABLE_PER_SUBCLASS;
+SHOW TABLES;
+DESCRIBE Person;
+DESCRIBE Customer;
+DESCRIBE Employee;
+DESCRIBE Executive;
+```
+
+Data checks
+
+```
+SELECT * FROM Person ORDER BY id;
+```
+
+Joined projection:
+
+```
+SELECT p.id, p.name,
+CASE
+WHEN x.id IS NOT NULL THEN 'Executive'
+WHEN e.id IS NOT NULL THEN 'Employee'
+WHEN c.id IS NOT NULL THEN 'Customer'
+ELSE 'Person'
+END AS TYPE,
+c.discount, e.salary, x.bonus
+FROM Person p
+LEFT JOIN Customer c ON c.id = p.id
+LEFT JOIN Employee e ON e.id = p.id
+LEFT JOIN Executive x ON x.id = p.id
+ORDER BY p.id;
+
+SELECT p.name FROM Person p JOIN Executive x ON x.id = p.id WHERE p.id = 3;
+```
+
+Optional global check
+
+```
+SELECT table_schema, table_name FROM information_schema.tables WHERE table_schema LIKE 'DB_LAB_04%';
+```
