@@ -295,7 +295,7 @@ mvn -q exec:java@TABLE_PER_SUBCLASS
 ```
 These align with what each Launcher inserts: ids 1 (Customer), 2 (Employee), 3 (Executive).
 
-## 4. Application Outputs
+## 4. Application Outputs (run these queries in MySQL database)
 
 ### 4.1. SINGLE_TABLE (TABLE_PER_HIERARCHY)
 
