@@ -297,9 +297,11 @@ These align with what each Launcher inserts: ids 1 (Customer), 2 (Employee), 3 (
 
 ## 4. Application Outputs (run these queries in MySQL database)
 
+<img width="877" height="185" alt="image" src="https://github.com/user-attachments/assets/7d82de8c-f7d1-4280-88cd-c3437ad68d4c" />
+
 ### 4.1. SINGLE_TABLE (TABLE_PER_HIERARCHY)
 
-<img width="887" height="683" alt="image" src="https://github.com/user-attachments/assets/5c995084-b526-4395-aa9b-eed859e555fe" />
+<img width="868" height="623" alt="image" src="https://github.com/user-attachments/assets/1adcb84f-a14b-4794-97f0-16077c99cf64" />
 
 Switch and inspect
 
@@ -319,6 +321,8 @@ SELECT name FROM Person WHERE id = 3;
 ```
 
 ### 4.2. TABLE_PER_CLASS
+
+<img width="863" height="479" alt="image" src="https://github.com/user-attachments/assets/0844bfc1-fa53-40cf-b9ce-ef8eaae88ef5" />
 
 Switch and inspect
 
@@ -351,6 +355,8 @@ SELECT name FROM Executive WHERE id = 3;
 ```
 
 ### 4.3. JOINED (TABLE_PER_SUBCLASS)
+
+<img width="612" height="472" alt="image" src="https://github.com/user-attachments/assets/af642469-3d35-4e8b-9573-600703178715" />
 
 Switch and inspect
 
