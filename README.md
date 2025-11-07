@@ -299,6 +299,8 @@ These align with what each Launcher inserts: ids 1 (Customer), 2 (Employee), 3 (
 
 ### 4.1. SINGLE_TABLE (TABLE_PER_HIERARCHY)
 
+<img width="887" height="683" alt="image" src="https://github.com/user-attachments/assets/5c995084-b526-4395-aa9b-eed859e555fe" />
+
 Switch and inspect
 
 ```
