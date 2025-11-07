@@ -1,6 +1,6 @@
 # Java_JPA_Hibernate-lab-04_Solved
 
-## Exercise
+## 1. Exercise
 
 **Entities class hierarchy**
 
@@ -138,7 +138,7 @@ method sample() finds the entity by identified and prints the “name” attribu
 
 28.	Open database DB_LAB_04 using MySQL Workbench and look on the created database objects.
  
-## Solution
+## 2. Solution
 
 Here are concise MySQL queries you can run to verify each inheritance strategy’s schema and data.
 
@@ -272,5 +272,26 @@ SELECT p.name FROM Person p JOIN Executive x ON x.id = p.id WHERE p.id = 3;
 SELECT table_schema, table_name FROM information_schema.tables WHERE table_schema LIKE 'DB_LAB_04%';
 ```
 
+## 3. How to Run the Application 
+
+Run VSCode and in the Terminal Window execute these commands:
+
+**SINGLE_TABLE**: 
+
+```
+mvn -q exec:java@TABLE_PER_HIERARCHY
+```
+
+**TABLE_PER_CLASS**: 
+
+```
+mvn -q exec:java@TABLE_PER_CLASS
+```
+
+**JOINED**: 
+
+```
+mvn -q exec:java@TABLE_PER_SUBCLASS
+```
 These align with what each Launcher inserts: ids 1 (Customer), 2 (Employee), 3 (Executive).
 
