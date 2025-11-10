@@ -153,7 +153,7 @@ SHOW TABLES;
 
 DESCRIBE Person;
 
-SHOW CREATE TABLE Person\G
+SHOW CREATE TABLE Person;
 ```
 
 **Data checks**
